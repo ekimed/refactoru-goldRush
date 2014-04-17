@@ -1,0 +1,12 @@
+img {
+  height: 900px;
+  width: 800px;
+  position: relative;
+}
+.marker-image {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  background-color: #ff0;
+  position: absolute;
+}
