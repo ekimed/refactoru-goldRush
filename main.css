@@ -18,5 +18,5 @@ img {
   display: none;
   top: 5px;
   left: 31px;
-  position: relative;
+  position: absolute;
 }
