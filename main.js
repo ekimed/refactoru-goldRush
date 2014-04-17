@@ -1,31 +1,104 @@
+var isEditing = false;
+
 $(document).on('ready', function() {
-  $('img').on('click', function addMarker(e){
-  	var marker = $('<div class="marker"></div>');
-  	$('.container').append($(marker));
-  	var pic = $('<div class="marker-image"></div>');
-  	marker.append(pic);
-  	var note = $('<div class="note"></div>');
-  	marker.append(note);
-  	marker.offset({top: e.pageY, left:e.pageX});
-  	var noteText = prompt("Enter Note:");
-  	note.text(noteText);
-  	note.css('display', 'none');
-  	pic.hover( function(e){
-  		console.log("hovering");
-  			$(this).closest('.marker').find('.note').toggle();
- // 	console.log('remove called');
-  		});
-  //	console.log('add called');
+  
+
+    $('img').on('click', function addMarker(e){
+      if (!isEditing){
+    //append a container div on click on the map
+      var marker = $('<div class="marker"></div>');
+      $('.container').append($(marker));
+
+
+      //append a div for the marker in the marker container
+      var pic = $('<div class="marker-image"></div>');
+      marker.append(pic);
+
+      //append a note div in the marker container
+      var note = $('<div class="note"></div>');
+      marker.append(note);
+
+      //sets the coordiantes of the marker container to the mouse position relative to the document
+      marker.offset({top: e.pageY, left:e.pageX});
+
+      var noteText = $('<input class="note-text"></input>');
+      marker.append(noteText);
+
+      noteText.focus();
+
+      isEditing = true;
+
+      noteText.blur(function(){
+        var input = noteText.val();
+        $(this).hide("slow");
+        var savedNote = $('<div class="saved-note"></div>');
+        marker.append(savedNote)
+        savedNote.text(input);
+        setTimeout(function(){isEditing = false;}, 500);
+
+      pic.hover(function(){
+        $(this).siblings('.saved-note').toggle();
+      });
+});
+    }
+    });
+  
+  // else{
+  //     $('.note-text').blur(function(){
+  //     var input = noteText.val();
+  //     $(this).hide("slow");
+  //     var savedNote = $('<div class="saved-note"></div>');
+  //     marker.append(savedNote).text(input);
+
+// };
+  //   });
+
+
+
+
+
+
+
+  // $('img').on('click', function addMarker(e){
+  //   //append a container div on click on the map
+  // 	var marker = $('<div class="marker"></div>');
+  // 	$('.container').append($(marker));
+
+
+  //   //append a div for the marker in the marker container
+  // 	var pic = $('<div class="marker-image"></div>');
+  // 	marker.append(pic);
+
+  //   //append a note div in the marker container
+  // 	var note = $('<div class="note"></div>');
+  // 	marker.append(note);
+
+  //   //sets the coordiantes of the marker container to the mouse position relative to the document
+  // 	marker.offset({top: e.pageY, left:e.pageX});
+
+  //   var noteText = $('<input class="note-text"></input>');
+  //   marker.append(noteText);
+
+  // });
+  // // 	var noteText = prompt("Enter Note:");
+  // // 	note.text(noteText);
+  // // 	note.css('display', 'none');
+  // // 	pic.hover( function(e){
+  // // 		console.log("hovering");
+  // // 			$(this).closest('.marker').find('.note').toggle();
+  // // 		});
+  // $('.note-text').blur(function(){
+  //   var input = noteText.val();
+  //   $(this).hide("slow");
+  //   var savedNote = $('<div class="saved-note"></div>');
+  //   marker.append(savedNote).text(input);
+
+  // });
+
+  $(document).on('click', '.marker-image', function(e){
+  	$(this).closest('.marker').remove();
+
   });
 
-  $(document).on('click', '.marker', function(e){
-  	$(this).remove();
- // 	console.log('remove called');
-  });
-
- //  $(document).on('hover', '.marker', function(e){
- //  	$(this).find('.note').toggle();
- // // 	console.log('remove called');
- //  });
 
 });

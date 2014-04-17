@@ -10,3 +10,13 @@ img {
   background-color: #ff0;
   position: absolute;
 }
+.note-text {
+  height: 100px;
+  width: 300px;
+}
+.saved-note {
+  display: none;
+  top: 5px;
+  left: 31px;
+  position: relative;
+}
